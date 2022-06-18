@@ -4,21 +4,32 @@ import React, { useState } from "react";
 import { FaEnvelope, FaLock } from "react-icons/fa";
 import { CenterDiv } from "components/utils";
 import { TextInput, Button, A } from "components/atoms";
-import { useSignInWithGoogle } from "react-firebase-hooks/auth";
-import { auth, app, db } from "../firebase/client";
+import { auth } from "../firebase/client";
 import Root from "components/Root";
 import {ScreenContainer,SideContainer,SideContainerImage,FormMargin,Welcome,} from "components/auth/authPage";
-import { signInWithEmailAndPassword } from "firebase/auth";
+import { GoogleAuthProvider, signInWithEmailAndPassword, signInWithPopup } from "firebase/auth";
+import Router from "next/router";
 
 const Login: NextPage = () => {
     
+    
     const [email, setEmail] = useState("");
-    const [password, setPassword] = useState("");
-    const [signInWithGoogle, user, loading, error] = useSignInWithGoogle(auth)
-
-    function loginEmail(){
-        signInWithEmailAndPassword(auth, 'test@test.com', 'password')
+    const [password, setPassword] = useState("");    
+    
+    function GoogleLogin(e:any){
+        e.preventDefault()
+        const goolgeProvider = new GoogleAuthProvider()
+        signInWithPopup(auth,goolgeProvider).then(()=>{
+        Router.push("/")
+    })
     }
+    function EmailLogin(e:any){
+        e.preventDefault()
+        signInWithEmailAndPassword(auth,email,password).then(()=>{
+            Router.push("/")
+        })
+    }
+
     return (
         <Root title="Login">
             <ScreenContainer>
@@ -57,8 +68,8 @@ const Login: NextPage = () => {
                                 </FormMargin>
 
                                 <FormMargin>
-                                    <Button onClick={loginEmail()} $mt>Login</Button>
-                                    <Button onClick={signInWithGoogle()} $secondary $mt>
+                                    <Button onClick={(e:any)=>EmailLogin(e)} $mt>Login</Button>
+                                    <Button onClick={(e:any)=>GoogleLogin(e)} $secondary $mt>
                                         <img
                                             src="/assets/google_logo.png"
                                             alt="Google Logo"

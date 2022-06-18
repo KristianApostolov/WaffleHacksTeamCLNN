@@ -14,6 +14,9 @@ export default function App({ Component, pageProps }: AppProps){
         if(user === null && !loading && !error){
             Router.push("/login")
         }
+        else if(user !== null && !loading && !error && (Router.pathname === "/login" || Router.pathname === "/signup")){
+            Router.push("/")
+        }
     },[user, loading, error])
 
     return (
