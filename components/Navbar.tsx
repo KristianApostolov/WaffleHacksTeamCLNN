@@ -1,20 +1,30 @@
-import { auth } from "../firestore/client";
-import NavButton from "./NavButton";
 import { FaCompass, FaPalette } from "react-icons/fa";
+import { auth } from "firestore/client";
+import NavButton from "./NavButton";
 
 export default function Navbar() {
-    return ( 
+    return (
         <div className="h-fit py-6 flex justify-between items-center">
-            <div className='about-button'>
-                <NavButton content="&nbsp; &nbsp; &nbsp; &nbsp; artly" margin={2} />
+            <div className="about-button">
+                <NavButton
+                    content="&nbsp; &nbsp; &nbsp; &nbsp; artly"
+                    margin={2}
+                />
             </div>
-            <div className='inline-flex items-baseline justify-center'>
-                <NavButton content={<FaCompass className='h-6 w-6'/>} margin={2} />
+            <div className="inline-flex items-baseline justify-center">
+                <NavButton
+                    content={<FaCompass className="h-6 w-6" />}
+                    margin={2}
+                />
                 &nbsp; &nbsp;
-                <NavButton content={<FaPalette className='h-6 w-6'/>} margin={2} />
+                <NavButton
+                    content={<FaPalette className="h-6 w-6" />}
+                    margin={2}
+                />
                 &nbsp; &nbsp; &nbsp; &nbsp;
             </div>
-            <style jsx> {`
+            <style jsx>
+                {`
                 .h-fit {
                     color: white;
                     background-color: #0a6997;
@@ -24,11 +34,5 @@ export default function Navbar() {
                 `}
             </style>
         </div>
-<<<<<<< HEAD
     );
 }
-=======
-
-     )
-}
->>>>>>> 192a354a36231a8ae5190dfd81b526ea9d5a80c5

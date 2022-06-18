@@ -1,6 +1,7 @@
-import Navbar from "components/Navbar";
 import Head from "next/head";
 import React from "react";
+
+import Navbar from "./Navbar";
 
 interface RootProps {
     header?: boolean;
