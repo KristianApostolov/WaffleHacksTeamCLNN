@@ -1,3 +1,4 @@
+import Navbar from "components/Navbar";
 import Head from "next/head";
 import React from "react";
 
@@ -58,7 +59,7 @@ const Root = (props: RootProps) => {
                     href="/icons/apple-touch-icon.png"
                 /> */}
             </Head>
-            {props.header && <p>header</p>}
+            {props.header && <Navbar />}
             {props.children}
         </>
     );
