@@ -6,12 +6,13 @@
         "start": "next start"
     },
     "dependencies": {
+        "firebase": "9.8.3",
         "next": "latest",
         "react": "18.1.0",
         "react-dom": "18.1.0",
-        "react-firebase-hooks": "^5.0.3",
         "react-icons": "^4.4.0",
-        "tailwind-styled-components": "^2.1.7"
+        "tailwind-styled-components": "^2.1.7",
+        "react-firebase-hooks": "5.0.0"
     },
     "devDependencies": {
         "@types/node": "17.0.35",
