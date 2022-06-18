@@ -5,10 +5,3 @@ export const CenterDiv = tw.div`
     place-items-center
     h-full
 `;
-
-export const FormMargin = tw.div`
-    flex
-    flex-col
-    w-full
-    mt-5
-`;
