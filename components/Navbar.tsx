@@ -18,7 +18,7 @@ function NavButtonComponent() {
 export default function Navbar({user}:NavButtonProps) {
 
     const ICON_CLASS_NAME: string = 'h-8 w-8 fill-white opacity-70 transition duration-150 group-hover:opacity-100 group-hover:scale-110'
-    const ICON_TEXT_CLASS_NAME: string = "text-white ml-4 hidden group-hover:block italic font-light"
+    const ICON_TEXT_CLASS_NAME: string = "text-white ml-4 hidden group-hover:block font-Verdana font-light"
 
     function handleSignOut(){
         signOut(auth)
@@ -28,10 +28,10 @@ export default function Navbar({user}:NavButtonProps) {
 
     return ( 
         <div className="h-fit py-4 bg-sky-500 w-full border-b border-slate-300 flex justify-between items-center">
-            <text className='ml-32 text-white font-serif text-2xl font-light italic'>
+            <text className='ml-16 text-white font-Verdana text-2xl font-light'>
                 ARTLY
             </text>
-            <div className='divide-x-2 mr-16'>
+            <div className='divide-x-2 mr-0'>
                 <div className='mr-8 inline-flex items-baseline justify-between'>
                     <NavButton
                         icon={ <FaCompass className={ICON_CLASS_NAME}/> }
