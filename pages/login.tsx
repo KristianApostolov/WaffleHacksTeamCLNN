@@ -1,11 +1,11 @@
 import type { NextPage } from "next";
 import React from "react";
 
-import { faEnvelope } from "@fortawesome/free-regular-svg-icons";
+import tw from "tailwind-styled-components";
 
 import { TextInput, Button, A } from "components/atoms";
 
-import tw from "tailwind-styled-components";
+import { FaEnvelope, FaLock } from "react-icons/fa";
 
 const CenterDiv = tw.div`
     grid
@@ -48,20 +48,20 @@ const Login: NextPage = () => {
                             <form className="flex flex-col">
                                 <FormMargin>
                                     <TextInput
-                                        mt
-                                        icon={faEnvelope}
                                         placeholder="John Doe"
+                                        icon={<FaEnvelope />}
+                                        mt
                                     />
                                     <TextInput
-                                        mt
-                                        icon={faEnvelope}
                                         placeholder="Password"
+                                        icon={<FaLock />}
+                                        mt
                                     />
                                 </FormMargin>
 
                                 <FormMargin>
-                                    <Button mt>Login</Button>
-                                    <Button secondary mt>
+                                    <Button $mt>Login</Button>
+                                    <Button $secondary $mt>
                                         <img
                                             src="/assets/google_logo.png"
                                             alt="Google Logo"
