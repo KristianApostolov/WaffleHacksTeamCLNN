@@ -1,4 +1,4 @@
-import {auth} from '../firebase/client'
+import {auth} from '../firestore/client'
 import NavButton from './NavButton'
 import { FaCompass,FaPalette } from 'react-icons/fa'
 
