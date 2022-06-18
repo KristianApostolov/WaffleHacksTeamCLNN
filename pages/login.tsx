@@ -1,24 +1,24 @@
 import type { NextPage } from "next";
 import Link from "next/link";
-
-import React from "react";
-
+import React, { useState } from "react";
 import { FaEnvelope, FaLock } from "react-icons/fa";
-
 import { CenterDiv } from "components/utils";
 import { TextInput, Button, A } from "components/atoms";
-
+import { useSignInWithGoogle } from "react-firebase-hooks/auth";
+import { auth, app, db } from "../firebase/client";
 import Root from "components/Root";
-
-import {
-    ScreenContainer,
-    SideContainer,
-    SideContainerImage,
-    FormMargin,
-    Welcome,
-} from "components/auth/authPage";
+import {ScreenContainer,SideContainer,SideContainerImage,FormMargin,Welcome,} from "components/auth/authPage";
+import { signInWithEmailAndPassword } from "firebase/auth";
 
 const Login: NextPage = () => {
+    
+    const [email, setEmail] = useState("");
+    const [password, setPassword] = useState("");
+    const [signInWithGoogle, user, loading, error] = useSignInWithGoogle(auth)
+
+    function loginEmail(){
+        signInWithEmailAndPassword(auth, 'test@test.com', 'password')
+    }
     return (
         <Root title="Login">
             <ScreenContainer>
@@ -41,11 +41,15 @@ const Login: NextPage = () => {
                             <form className="flex flex-col">
                                 <FormMargin>
                                     <TextInput
+                                        value={email}
+                                        onChange={(e:any) => setEmail(e.target.value)}
                                         placeholder="John Doe"
                                         icon={<FaEnvelope />}
                                         mt
                                     />
                                     <TextInput
+                                        value={password}
+                                        onChange={(e:any) => setPassword(e.target.value)}
                                         placeholder="Password"
                                         icon={<FaLock />}
                                         mt
@@ -53,8 +57,8 @@ const Login: NextPage = () => {
                                 </FormMargin>
 
                                 <FormMargin>
-                                    <Button $mt>Login</Button>
-                                    <Button $secondary $mt>
+                                    <Button onClick={loginEmail()} $mt>Login</Button>
+                                    <Button onClick={signInWithGoogle()} $secondary $mt>
                                         <img
                                             src="/assets/google_logo.png"
                                             alt="Google Logo"
@@ -68,7 +72,7 @@ const Login: NextPage = () => {
 
                         <p className="absolute text-slate-400 bottom-8">
                             Don’t have an account yet?{" "}
-                            <Link href="/auth/signup">
+                            <Link href="/signup">
                                 <A>Sign up.</A>
                             </Link>
                         </p>

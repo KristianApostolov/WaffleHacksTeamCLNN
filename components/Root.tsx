@@ -60,7 +60,6 @@ const Root = (props: RootProps) => {
                     href="/icons/apple-touch-icon.png"
                 /> */}
             </Head>
-            {props.header && <Navbar />}
             {props.children}
         </>
     );

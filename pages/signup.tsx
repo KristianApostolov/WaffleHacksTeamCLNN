@@ -73,7 +73,7 @@ const Signup: NextPage = () => {
 
                         <p className="absolute text-slate-400 bottom-8">
                             Have an account already?{" "}
-                            <Link href="/auth/login">
+                            <Link href="/login">
                                 <A>Login.</A>
                             </Link>
                         </p>
