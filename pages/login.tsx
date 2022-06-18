@@ -11,8 +11,6 @@ import { GoogleAuthProvider, signInWithEmailAndPassword, signInWithPopup } from 
 import Router from "next/router";
 
 const Login: NextPage = () => {
-    
-    
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");    
     
