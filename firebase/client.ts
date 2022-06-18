@@ -1,7 +1,7 @@
-import { initializeApp } from "firebase/app"
-import { getFirestore } from "firebase/firestore"
-import { getAuth } from 'firebase/auth'
-import config from '../config'
+import { initializeApp } from "firebase/app";
+import { getFirestore } from "firebase/firestore";
+import { getAuth } from "firebase/auth";
+import config from "../config";
 
 export const app = initializeApp({
     apiKey: "AIzaSyC4VmtuqzZCVhQIRXRr9qd-rzJGmD5bnOU",
@@ -10,9 +10,9 @@ export const app = initializeApp({
     storageBucket: "wafflehack-73627.appspot.com",
     messagingSenderId: "70430189201",
     appId: "1:70430189201:web:b592d741d44745493fc130",
-    measurementId: "G-849CLDBSZ0"
-  })
+    measurementId: "G-849CLDBSZ0",
+});
 
-export const db = getFirestore(app)
+export const db = getFirestore(app);
 
-export const auth  = getAuth(app)
+export const auth = getAuth(app);
