@@ -10,8 +10,8 @@ export default function Navbar() {
                 <NavButton content="About" margin={2} />
             </div>
             <div className='inline-flex items-baseline justify-center'>
-                <NavButton content={<FaCompass className='h-8 w-8'/>} margin={2} />
-                <NavButton content={<FaPalette className='h-8 w-8'/>} margin={2} />
+                <NavButton content={<FaCompass className='h-6 w-6'/>} margin={2} />
+                <NavButton content={<FaPalette className='h-6 w-6'/>} margin={2} />
             </div>
         </div>
      )
