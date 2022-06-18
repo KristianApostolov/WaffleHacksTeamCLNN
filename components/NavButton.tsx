@@ -1,7 +1,8 @@
 import { ReactNode } from "react"
 
 interface NavButtonProps {
-    content?: ReactNode | string
+    icon?: ReactNode | string
+    text?: ReactNode | string
     onClick: Function
     margin: number
 }
@@ -10,21 +11,25 @@ interface NavImgProps {
     onClick?: Function
     margin: number
 }
-export default function NavButton({content, onClick, margin}:NavButtonProps) {
+export default function NavButton({icon, text, onClick, margin}:NavButtonProps) {
     return ( 
         <div 
             style={{marginLeft:margin/4+'rem', marginRight:margin/4+'rem'}} 
             onClick={()=>onClick()}
-            className="m-2 font-semibold cursor-pointer text-lg">
-            {content}
+            className="p-2 group flex font-semibold cursor-pointer text-lg transition duration-150 border-b-2 border-transparent hover:border-white">
+            {icon}
+            {text}
         </div>
      )
 }
 export function NavImg({src, onClick, margin}:NavImgProps) {
     return ( 
-        <img src={src} 
-            style={{marginLeft:margin/4+'rem', marginRight:margin/4+'rem'}} 
-            className="m-2 font-semibold cursor-pointer rounded-full h-8 w-8 hover:text-blue-500 duration-200 text-lg">
-        </img>
+        <div className="p-2 border-b-2 border-transparent">
+            <img src={src} 
+                style={{marginLeft:margin/4+'rem', marginRight:margin/4+'rem'}} 
+                className="font-semibold cursor-pointer rounded-full h-8 w-8">
+            </img>
+        </div>
+        
      )
 }
