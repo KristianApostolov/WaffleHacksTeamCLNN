@@ -35,7 +35,7 @@ const Login: NextPage = () => {
                             <form className="flex flex-col">
                                 <FormMargin>
                                     <TextInput
-                                        placeholder="John Doe"
+                                        placeholder="Username"
                                         icon={<FaEnvelope />}
                                         mt
                                     />
