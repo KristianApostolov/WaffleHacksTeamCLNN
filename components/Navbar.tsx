@@ -28,36 +28,36 @@ export default function Navbar({user}:NavButtonProps) {
 
     return ( 
         <div className="h-fit py-4 bg-sky-500 w-full border-b border-slate-300 flex justify-between items-center">
-            <text className='ml-16 text-white font-Verdana text-2xl font-light'>
+            <span className='ml-16 text-white font-Verdana text-2xl font-light cursor-pointer'>
                 ARTLY
-            </text>
+            </span>
             <div className='divide-x-2 mr-0'>
                 <div className='mr-8 inline-flex items-baseline justify-between'>
                     <NavButton
                         icon={ <FaCompass className={ICON_CLASS_NAME}/> }
-                        text={<text className={ICON_TEXT_CLASS_NAME}>EXPLORE</text>}
+                        text={<span className={ICON_TEXT_CLASS_NAME}>EXPLORE</span>}
                         onClick = {() => Router.push("/explore")}
                         margin={4} />
                     <NavButton 
                         icon={<FaPalette className={ICON_CLASS_NAME}/>} 
-                        text={<text className={ICON_TEXT_CLASS_NAME}>DRAW</text>}
+                        text={<span className={ICON_TEXT_CLASS_NAME}>DRAW</span>}
                         onClick = {() => Router.push(`/draw/${user?.id}`)} // Replace with id field
                         margin={4} />
                     <NavButton 
                         icon={<FaRegBookmark className={ICON_CLASS_NAME}/>} 
-                        text={<text className={ICON_TEXT_CLASS_NAME}>COLLECTION</text>}
+                        text={<span className={ICON_TEXT_CLASS_NAME}>COLLECTION</span>}
                         onClick = {() => Router.push(`/Collection`)} 
                         margin={4} />
                     <NavButton 
                         icon={<FaUser className={ICON_CLASS_NAME}/>} 
-                        text={<text className={ICON_TEXT_CLASS_NAME}>PROFILE</text>}
+                        text={<span className={ICON_TEXT_CLASS_NAME}>PROFILE</span>}
                         onClick = {() => Router.push(`/user/${user?.id}`)} // Replace with id field
                         margin={4} />
                 </div>
                 <div className='inline-flex items-baseline justify-center'>
                     <NavButton 
                         icon={<ImExit className={ICON_CLASS_NAME}/>} 
-                        text={<text className={ICON_TEXT_CLASS_NAME}>LOGOUT</text>}
+                        text={<span className={ICON_TEXT_CLASS_NAME}>LOGOUT</span>}
                         onClick={handleSignOut} 
                         margin={12} />
                 </div>

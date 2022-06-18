@@ -16,7 +16,7 @@ export default function NavButton({icon, text, onClick, margin}:NavButtonProps) 
         <div 
             style={{marginLeft:margin/4+'rem', marginRight:margin/4+'rem'}} 
             onClick={()=>onClick()}
-            className="p-2 group flex font-semibold cursor-pointer text-lg transition duration-150 border-b-2 border-transparent hover:border-white">
+            className="p-2 group flex font-semibold cursor-pointer text-lg transition duration-200 border-b-2 border-transparent hover:border-white">
             {icon}
             {text}
         </div>
