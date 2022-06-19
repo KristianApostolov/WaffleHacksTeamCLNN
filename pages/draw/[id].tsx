@@ -137,7 +137,13 @@ export default Draw;
 export const getServerSideProps = async (context: NextPageContext) => {
     const id = context.query.id! as string;
 
-    // import { doc, getDoc } from "firebase/firestore";
+    if (id === "new") {
+        return {
+            props: {
+                id,
+            },
+        };
+    }
 
     const docRef = doc(db, "drawings", id);
     const docSnap = await getDoc(docRef);
