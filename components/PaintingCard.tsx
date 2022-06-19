@@ -19,10 +19,10 @@ export default function PaintingCard({heading,painting, onClick, upVotes, userIc
     return ( 
         <div className="inline-flex items-center justify-center flex-col m-8">
             <h1 className="font-semibold">{heading}</h1>
-            <div className="h-52 w-52 rounded-3xl bg-gray-300 "></div>
+            <img className="h-52 w-52 rounded-3xl border border-gray-300 overflow-hidden" src={painting}></img>
             <div className="flex items-center justify-between mt-2 w-48">
                 <div className="flex items-center">
-                    <div className="rounded-full h-6 w-6 bg-black z-10"></div>
+                    <img src={userIcon} className="rounded-full h-6 w-6 bg-black z-10"></img>
                     {collaborators.map((collaborator:any)=>{
                         const currentIndex = collaborators.indexOf(collaborator)
                         if(currentIndex < 4){
