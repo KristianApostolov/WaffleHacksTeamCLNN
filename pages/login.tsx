@@ -44,7 +44,7 @@ const Login: NextPage = () => {
                         <div>
                             <Welcome
                                 title="Hello There!"
-                                description="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore"
+                                description="Welcome to your portal to cumulative art"
                             />
 
                             <form className="flex flex-col">
