@@ -50,8 +50,11 @@ const Draw: NextPage = ({ id, user, image }: DrawProps) => {
             collaborators: [],
             upvotes: 0,
         };
+
         await addDoc(collection(db, "drawings"), data)
-            .then(() => {})
+            .then((document) => {
+                console.log(document, document.id);
+            })
             .catch((e) => {
                 console.error(e);
             });
