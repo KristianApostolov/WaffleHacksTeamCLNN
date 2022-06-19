@@ -1,20 +1,30 @@
 import { useRef, useEffect } from "react";
 import Mouse from "./Mouse";
 
-const LINE_SIZE = 5;
+const LINE_SIZE = 10;
 
-const Canvas = () => {
+interface CanvasProps {
+    activeTool: string;
+    activeColor: string;
+}
+
+const Canvas = ({ activeTool, activeColor }: CanvasProps) => {
     const canvasRef = useRef<HTMLCanvasElement>(null);
 
     useEffect(() => {
         const canvas = canvasRef.current!;
-        const ctx = canvas.getContext("2d");
-        const size = {
-            width: canvas.offsetWidth,
-            height: canvas.offsetHeight,
-        };
+        const ctx = canvas.getContext("2d")!;
+        const [width, height] = [canvas.offsetWidth, canvas.offsetHeight];
 
-        Object.assign(canvas, size);
+        // create initial blank canvas
+        Object.assign(canvas, { width, height });
+        ctx.fillStyle = "#fff";
+        ctx.fillRect(0, 0, width, height);
+    }, []);
+
+    useEffect(() => {
+        const canvas = canvasRef.current!;
+        const ctx = canvas.getContext("2d")!;
 
         // canvas state
         let animationId: number = 0;
@@ -23,20 +33,16 @@ const Canvas = () => {
         let prevMouseX: number | null;
         let prevMouseY: number | null;
 
-        if (!(ctx && canvas)) {
-            return;
-        }
-
-        // create initial blank canvas
-        ctx.fillStyle = "#fff";
-        ctx.fillRect(0, 0, size.width, size.height);
-
         const animate = () => {
             animationId = requestAnimationFrame(animate);
 
-            if (mouse.down) {
+            const _activeColor = activeTool === "eraser" ? "#fff" : activeColor;
+
+            if (mouse.down && ["pencil", "eraser"].includes(activeTool)) {
+                ctx.fillStyle = _activeColor;
+                ctx.strokeStyle = _activeColor;
+
                 // draw main circle
-                ctx.fillStyle = "#000";
                 ctx.beginPath();
                 ctx.arc(mouse.x, mouse.y, LINE_SIZE / 2, 0, Math.PI * 2);
                 ctx.fill();
@@ -66,7 +72,7 @@ const Canvas = () => {
             cancelAnimationFrame(animationId);
             mouse.dispose();
         };
-    }, []);
+    }, [activeTool, activeColor]);
 
     return (
         <canvas
