@@ -1,6 +1,6 @@
 import type { NextPage, NextPageContext } from "next";
 import { FaFill, FaEraser, FaPencilAlt } from "react-icons/fa";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 
 import { CenterDiv } from "components/utils";
 import { Button } from "components/atoms";
@@ -30,12 +30,23 @@ const Draw: NextPage = ({ id }: DrawProps) => {
     const [activeTool, setActiveTool] = useState("pencil");
     const [activeColor, setActiveColor] = useState("#9e0142");
 
+    const [title, setTitle] = useState("Untitled Drawing");
+    const canvasRef = useRef<HTMLCanvasElement>(null);
+
+    const exportCanvas = () => canvasRef.current!.toDataURL("image/png");
+
+    // exportCanvas returns canvas as a data URL
+    // title is the name of the drawing
+
     return (
         <CenterDiv>
             <div>
-                <h1 className="text-3xl font-semibold font-inter mt-8">
-                    Untitled Drawing
-                </h1>
+                <input
+                    className="text-3xl font-semibold font-inter mt-8"
+                    value={title}
+                    onChange={(e) => setTitle(e.target.value)}
+                />
+
                 <div className="flex gap-6 mt-4">
                     <div className="flex flex-col justify-between">
                         <div>
@@ -85,7 +96,11 @@ const Draw: NextPage = ({ id }: DrawProps) => {
                         <Button className="w-full mt-4">Publish</Button>
                     </div>
 
-                    <Canvas activeTool={activeTool} activeColor={activeColor} />
+                    <Canvas
+                        canvasRef={canvasRef}
+                        activeTool={activeTool}
+                        activeColor={activeColor}
+                    />
                 </div>
             </div>
         </CenterDiv>
