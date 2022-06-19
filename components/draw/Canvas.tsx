@@ -6,6 +6,7 @@ import floodFill from "utils/floodFill";
 const LINE_SIZE = 10;
 
 interface CanvasProps {
+    canvasRef: React.RefObject<HTMLCanvasElement>;
     activeTool: string;
     activeColor: string;
 }
@@ -19,9 +20,7 @@ function HEXToVBColor(rrggbb: string) {
     return parseInt(bbggrr, 16);
 }
 
-const Canvas = ({ activeTool, activeColor }: CanvasProps) => {
-    const canvasRef = useRef<HTMLCanvasElement>(null);
-
+const Canvas = ({ canvasRef, activeTool, activeColor }: CanvasProps) => {
     useEffect(() => {
         const canvas = canvasRef.current!;
         const ctx = canvas.getContext("2d")!;

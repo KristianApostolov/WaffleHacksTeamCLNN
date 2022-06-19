@@ -1,7 +1,8 @@
 import type { NextPage, NextPageContext } from "next";
 import { FaFill, FaEraser, FaPencilAlt } from "react-icons/fa";
-import { useEffect, useState } from "react";
-import { db } from "firebase/client";
+import { useEffect, useRef, useState } from "react";
+import { db } from "../../firebase/client";
+import { setDoc } from "firebase/firestore";
 import { CenterDiv } from "components/utils";
 import { Button } from "components/atoms";
 import Canvas from "components/draw/Canvas";
@@ -12,10 +13,11 @@ import {
     CanvasColorPicker,
 } from "components/draw/CanvasTools";
 import useRandomColors from "hooks/useRandomColors";
-import { addDoc , collection, doc } from "firebase/firestore";
+import { addDoc , collection, doc, Timestamp } from "firebase/firestore";
 
 interface DrawProps {
     id?: string;
+    user?: any;
 }
 
 const canvasTools = [
@@ -24,21 +26,33 @@ const canvasTools = [
     { name: "pencil", icon: <FaPencilAlt /> },
 ];
 
-const Draw: NextPage = ({ id }: DrawProps) => {
+const Draw: NextPage = ({ id,user }: DrawProps) => {
     const { colors, lastColor, setLastColor } = useRandomColors(10);
     const [activeTool, setActiveTool] = useState("pencil");
     const [activeColor, setActiveColor] = useState("#9e0142");
+    const [title, setTitle] = useState("Untitled Drawing");
+    const canvasRef = useRef<HTMLCanvasElement>(null);
 
-    function PublishImage(){
-        
+    async function PublishImage(){
+        const data = {
+            heading:title,
+            content: canvasRef.current!.toDataURL("image/png"),
+            created: Timestamp.now(),
+            creator: [user.uid, user.displayName, user.photoURL],
+            collaborators: [],
+            upvotes:0,
+        }
+        await addDoc(collection(db, "drawings"), data).then(() => {}).catch((e) => {console.error(e)});
     }
-
     return (
         <CenterDiv>
             <div>
-                <h1 className="text-3xl font-semibold font-inter mt-8">
-                    Untitled Drawing
-                </h1>
+                <input
+                    className="text-3xl font-semibold font-inter mt-8"
+                    value={title}
+                    onChange={(e) => setTitle(e.target.value)}
+                />
+
                 <div className="flex gap-6 mt-4">
                     <div className="flex flex-col justify-between">
                         <div>
@@ -85,10 +99,14 @@ const Draw: NextPage = ({ id }: DrawProps) => {
                             />
                         </div>
 
-                        <Button className="w-full mt-4" onClick={PublishImage}>Publish</Button>
+                        <Button className="w-full mt-4" onClick={async()=> await PublishImage()}>Publish</Button>
                     </div>
 
-                    <Canvas activeTool={activeTool} activeColor={activeColor} />
+                    <Canvas
+                        canvasRef={canvasRef}
+                        activeTool={activeTool}
+                        activeColor={activeColor}
+                    />
                 </div>
             </div>
         </CenterDiv>
