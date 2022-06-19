@@ -14,7 +14,7 @@ const Root = (props: RootProps) => {
     const title = `Artly | ${props.title || "Home"}`;
     const description =
         props.description || "A fresh perspective on collaborative art.";
-    const authors = "Nathan, Chris, Nugget, Larry";
+    const authors = "Nathan, Chris, Ryan, Larry";
 
     return (
         <>

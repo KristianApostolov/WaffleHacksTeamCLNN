@@ -57,7 +57,7 @@ export default function Navbar({user}:NavButtonProps) {
                     <NavButton 
                         icon={ <FaRegBookmark className={`${ICON_CLASS_NAME} ${tabIndex==2? "opacity-100 scale-110" : ""}`}/> }
                         text={<text className={`${ICON_TEXT_CLASS_NAME} ${tabIndex==2? "block" : "hidden"}`}>COLLECTION</text>}
-                        onClick = {() => onNavButtonClick(2, `/Collection`)} 
+                        onClick = {() => onNavButtonClick(2, `/collection`)} 
                         margin={4} />
                     <NavButton 
                         icon={ <FaUser className={`${ICON_CLASS_NAME} ${tabIndex==3? "opacity-100 scale-110" : ""}`}/> }
