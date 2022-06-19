@@ -21,6 +21,7 @@ import {
     setDoc,
     getDoc,
 } from "firebase/firestore";
+import { useRouter } from "next/router";
 
 interface DrawProps {
     id?: string;
@@ -41,6 +42,8 @@ const Draw: NextPage = ({ id, user, image }: DrawProps) => {
     const [title, setTitle] = useState("Untitled Drawing");
     const canvasRef = useRef<HTMLCanvasElement>(null);
 
+    const router = useRouter();
+
     async function PublishImage() {
         const data = {
             heading: title,
@@ -53,7 +56,7 @@ const Draw: NextPage = ({ id, user, image }: DrawProps) => {
 
         await addDoc(collection(db, "drawings"), data)
             .then((document) => {
-                console.log(document, document.id);
+                router.push(`/draw/${document.id}`);
             })
             .catch((e) => {
                 console.error(e);
