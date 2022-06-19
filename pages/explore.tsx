@@ -21,7 +21,7 @@ const Explore: NextPage = ({ user }: any) => {
     return (
         <>
             <div className="mt-9 ml-9 font-bold text-3xl">Explore</div>
-            <div className="flex-wrap justify-around  w-full">
+            <div className="grid xl:grid-cols-5 lg:grid-cols-4 gap-4 w-full grid-cols-2">
                 {drawings.map(([drawing, id]: [any, string]) => {
                     return (
                         <PaintingCard

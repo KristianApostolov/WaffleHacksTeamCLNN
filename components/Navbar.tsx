@@ -52,7 +52,7 @@ export default function Navbar({user}:NavButtonProps) {
                     <NavButton 
                         icon={ <FaPalette className={`${ICON_CLASS_NAME} ${tabIndex==1? "opacity-100 scale-110" : ""}`}/> }
                         text={<text className={`${ICON_TEXT_CLASS_NAME} ${tabIndex==1? "block" : "hidden"}`}>DRAW</text>}
-                        onClick = {() => onNavButtonClick(1, `/draw/${user?.id}`)} // Replace with id field
+                        onClick = {() => onNavButtonClick(1, "/draw/new")} // Replace with id field
                         margin={4} />
                     <NavButton 
                         icon={ <FaRegBookmark className={`${ICON_CLASS_NAME} ${tabIndex==2? "opacity-100 scale-110" : ""}`}/> }

@@ -28,12 +28,16 @@ export default function PaintingCard({
 
     return (
         <div className="inline-flex items-center justify-center flex-col m-8">
-            <h1 className="font-semibold">{heading}</h1>
+            <h1 className="font-semibold max-w-[80%] overflow-x-hidden text-ellipsis mx-auto">
+                {heading}
+            </h1>
             <Link href={`/draw/${id}`}>
-                <img
-                    className="h-52 w-52 rounded-3xl border border-gray-300 overflow-hidden"
-                    src={painting}
-                ></img>
+                <a>
+                    <img
+                        className="h-52 w-52 mt-2 rounded-3xl border border-gray-300 overflow-hidden cursor-pointer"
+                        src={painting}
+                    ></img>
+                </a>
             </Link>
             <div className="flex items-center justify-between mt-2 w-48">
                 <div className="flex items-center">
