@@ -54,3 +54,22 @@ export default function floodFill(
         ctx.putImageData(imageData, 0, 0);
     }
 }
+
+export const cssTo32BitColor = (function () {
+    let ctx: CanvasRenderingContext2D;
+
+    return function (cssColor: string) {
+        if (!ctx) {
+            ctx = document.createElement("canvas").getContext("2d")!;
+            ctx.canvas.width = 1;
+            ctx.canvas.height = 1;
+        }
+
+        ctx.clearRect(0, 0, 1, 1);
+        ctx.fillStyle = cssColor;
+        ctx.fillRect(0, 0, 1, 1);
+
+        const imgData = ctx.getImageData(0, 0, 1, 1);
+        return new Uint32Array(imgData.data.buffer)[0];
+    };
+})();
