@@ -5,7 +5,6 @@ import PaintingCard from "components/PaintingCard";
 const Home: NextPage = () => {
     return (
         <Root header>
-            
         </Root>
     );
 };
