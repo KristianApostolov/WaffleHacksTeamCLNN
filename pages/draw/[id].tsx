@@ -2,7 +2,6 @@ import type { NextPage, NextPageContext } from "next";
 import { FaFill, FaEraser, FaPencilAlt } from "react-icons/fa";
 import { useEffect, useRef, useState } from "react";
 import { db } from "../../firebase/client";
-import { setDoc } from "firebase/firestore";
 import { CenterDiv } from "components/utils";
 import { Button } from "components/atoms";
 import Canvas from "components/draw/Canvas";
@@ -13,11 +12,20 @@ import {
     CanvasColorPicker,
 } from "components/draw/CanvasTools";
 import useRandomColors from "hooks/useRandomColors";
-import { addDoc , collection, doc, Timestamp } from "firebase/firestore";
+
+import {
+    addDoc,
+    collection,
+    doc,
+    Timestamp,
+    setDoc,
+    getDoc,
+} from "firebase/firestore";
 
 interface DrawProps {
     id?: string;
     user?: any;
+    image?: string;
 }
 
 const canvasTools = [
@@ -26,24 +34,29 @@ const canvasTools = [
     { name: "pencil", icon: <FaPencilAlt /> },
 ];
 
-const Draw: NextPage = ({ id,user }: DrawProps) => {
+const Draw: NextPage = ({ id, user, image }: DrawProps) => {
     const { colors, lastColor, setLastColor } = useRandomColors(10);
     const [activeTool, setActiveTool] = useState("pencil");
     const [activeColor, setActiveColor] = useState("#9e0142");
     const [title, setTitle] = useState("Untitled Drawing");
     const canvasRef = useRef<HTMLCanvasElement>(null);
 
-    async function PublishImage(){
+    async function PublishImage() {
         const data = {
-            heading:title,
+            heading: title,
             content: canvasRef.current!.toDataURL("image/png"),
             created: Timestamp.now(),
             creator: [user.uid, user.displayName, user.photoURL],
             collaborators: [],
-            upvotes:0,
-        }
-        await addDoc(collection(db, "drawings"), data).then(() => {}).catch((e) => {console.error(e)});
+            upvotes: 0,
+        };
+        await addDoc(collection(db, "drawings"), data)
+            .then(() => {})
+            .catch((e) => {
+                console.error(e);
+            });
     }
+
     return (
         <CenterDiv>
             <div>
@@ -99,10 +112,16 @@ const Draw: NextPage = ({ id,user }: DrawProps) => {
                             />
                         </div>
 
-                        <Button className="w-full mt-4" onClick={async()=> await PublishImage()}>Publish</Button>
+                        <Button
+                            className="w-full mt-4"
+                            onClick={async () => await PublishImage()}
+                        >
+                            Publish
+                        </Button>
                     </div>
 
                     <Canvas
+                        initialImage={image}
                         canvasRef={canvasRef}
                         activeTool={activeTool}
                         activeColor={activeColor}
@@ -115,10 +134,29 @@ const Draw: NextPage = ({ id,user }: DrawProps) => {
 
 export default Draw;
 
-export const getServerSideProps = (context: NextPageContext) => {
+export const getServerSideProps = async (context: NextPageContext) => {
+    const id = context.query.id! as string;
+
+    // import { doc, getDoc } from "firebase/firestore";
+
+    const docRef = doc(db, "drawings", id);
+    const docSnap = await getDoc(docRef);
+
+    if (docSnap.exists()) {
+        const data = docSnap.data();
+
+        return {
+            props: {
+                id: context.query.id,
+                image: data.content,
+            },
+        };
+    }
+
     return {
-        props: {
-            id: context.query.id,
+        notFound: true,
+        redirect: {
+            destination: "/",
         },
     };
 };

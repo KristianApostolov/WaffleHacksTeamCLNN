@@ -9,6 +9,7 @@ interface CanvasProps {
     canvasRef: React.RefObject<HTMLCanvasElement>;
     activeTool: string;
     activeColor: string;
+    initialImage: string;
 }
 
 function HEXToVBColor(rrggbb: string) {
@@ -20,7 +21,12 @@ function HEXToVBColor(rrggbb: string) {
     return parseInt(bbggrr, 16);
 }
 
-const Canvas = ({ canvasRef, activeTool, activeColor }: CanvasProps) => {
+const Canvas = ({
+    canvasRef,
+    activeTool,
+    activeColor,
+    initialImage,
+}: CanvasProps) => {
     useEffect(() => {
         const canvas = canvasRef.current!;
         const ctx = canvas.getContext("2d")!;
@@ -30,6 +36,12 @@ const Canvas = ({ canvasRef, activeTool, activeColor }: CanvasProps) => {
         Object.assign(canvas, { width, height });
         ctx.fillStyle = "#fff";
         ctx.fillRect(0, 0, width, height);
+
+        const image = new Image();
+        image.onload = () => {
+            ctx.drawImage(image, 0, 0, width, height);
+        };
+        image.src = initialImage;
     }, []);
 
     useEffect(() => {
