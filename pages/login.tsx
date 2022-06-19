@@ -52,7 +52,7 @@ const Login: NextPage = () => {
                                     <TextInput
                                         value={email}
                                         onChange={(e:any) => setEmail(e.target.value)}
-                                        placeholder="John Doe"
+                                        placeholder="Username"
                                         icon={<FaEnvelope />}
                                         mt
                                     />
