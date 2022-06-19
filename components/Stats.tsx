@@ -3,6 +3,22 @@ import { db } from "../firebase/client";
 import React, { useState, useEffect } from 'react';
 
 
+interface statProp {
+    stat:number,
+    statDescription: string,
+}
+
+function SingleStat({stat, statDescription}:statProp) {
+    return <span className=''>
+        <text className="text-sky-600 text-lg font-bold mr-4">
+            {stat}
+        </text>
+        <text className="text-black font-Verdana text-xl font-light">
+            {statDescription}
+        </text>
+    </span>
+}
+
 export default function Stats(){
     
     const [drawings, setDrawings] = useState(0)
@@ -39,12 +55,17 @@ export default function Stats(){
     })
 
     return (
-        <div>
-            <span className='ml-16 text-#3366BB font-Verdana text-2xl font-light cursor-pointer'> {drawings} </span>
-            <span className='ml-16 text-#3366BB font-Verdana text-2xl font-light cursor-pointer'> {views} </span>
-            <span className='ml-16 text-#3366BB font-Verdana text-2xl font-light cursor-pointer'> {strokes} </span>
-            <span className='ml-16 text-#3366BB font-Verdana text-2xl font-light cursor-pointer'> {remixes} </span>
-            <span className='ml-16 text-#3366BB font-Verdana text-2xl font-light cursor-pointer'> {likes} </span>
+        <div className="bg-white p-10 rounded-xl drop-shadow-lg w-1/4 h-fit">
+            <text className="text-black text-2xl">
+                Stats:
+            </text>
+            <div className="flex flex-col ml-4 mt-2">
+                <SingleStat stat={drawings} statDescription={"designs"} />
+                <SingleStat stat={views} statDescription={"views"} />
+                <SingleStat stat={strokes} statDescription={"paint strokes"} />
+                <SingleStat stat={remixes} statDescription={"remixed designs"} />
+                <SingleStat stat={likes} statDescription={"likes"} />
+            </div>
         </div>
     );
 }

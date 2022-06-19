@@ -5,15 +5,13 @@ import { snapshotEqual } from "firebase/firestore";
 import { db } from "../../firebase/client"
 import Stats from "../../components/Stats"
 
-/*
-import {getDatabase, ref, child, get} from "..firebase/database";
-import { snapshotEqual } from "firebase/firestore";
 
 
 interface UserProps {
     id?: string;
 }
 
+/*
 async function getSnapshot() {
     await getDoc(doc(db, "/User_info/NiymYFmYbE6oapDh1l2z"))
         .then(snapshot => {
@@ -39,13 +37,14 @@ get(child(nameRef, "name")).then((snapshot) => {
 */
 
 const User: NextPage = ({ id }: UserProps) => {
-    return <Stats/>
+    return <div className="bg-gray-200 h-screen w-screen">
+        <Stats/>
+    </div>
 };
 
 export default User;
 
 /*
-
 export const getServerSideProps = (context: NextPageContext) => {
     return (
         <Stats/>
