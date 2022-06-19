@@ -38,16 +38,17 @@ get(child(nameRef, "name")).then((snapshot) => {
 
 const User: NextPage = ({ id }: UserProps) => {
     return <div className="bg-gray-200 h-screen w-screen">
-        <Stats/>
+        {Stats(id!)}
     </div>
 };
 
 export default User;
 
-/*
+
 export const getServerSideProps = (context: NextPageContext) => {
-    return (
-        <Stats/>
-    );
+    return {
+        props: {
+            id: context.query.id,
+        },
+    };
 };
-*/

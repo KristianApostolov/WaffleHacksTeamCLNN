@@ -19,7 +19,7 @@ function SingleStat({stat, statDescription}:statProp) {
     </span>
 }
 
-export default function Stats(){
+export default function Stats(userid: string){
     
     const [drawings, setDrawings] = useState(0)
     const [views, setViews] = useState(0)
@@ -34,12 +34,14 @@ export default function Stats(){
         setRemixes(remixes)
         setLikes(likes)
     }
+    console.log(userid)
 
     useEffect(() => {
         const fetchData = async () => {
-            await getDoc(doc(db, "/User_info/NiymYFmYbE6oapDh1l2z"))
+            await getDoc(doc(db, `/User_info/${userid}`))
                 .then(snapshot => {
                 if (snapshot.data()) {
+                    console.log(snapshot.data())
                     const drawings = snapshot.data()!!["UserStats"]["drawings"];
                     const views = snapshot.data()!!["UserStats"]["views"];
                     const strokes = snapshot.data()!!["UserStats"]["strokes"];
