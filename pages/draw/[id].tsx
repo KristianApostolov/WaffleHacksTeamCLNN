@@ -61,6 +61,7 @@ const Draw: NextPage = ({ id, user, image }: DrawProps) => {
             .catch((e) => {
                 console.error(e);
             });
+        router.push("/");
     }
 
     return (

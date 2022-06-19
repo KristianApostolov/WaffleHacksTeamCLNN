@@ -31,8 +31,8 @@ const Explore: NextPage = ({ user }: any) => {
                             painting={drawing.content}
                             onClick={() => undefined}
                             collaborators={drawing.collaborators}
-                            upVotes={drawing.upvotes}
-                            userIcon={drawing.creator[2]}
+                            upvotedBy={drawing.upvotedBy}
+                            user={drawing.creator}
                         />
                     );
                 })}
