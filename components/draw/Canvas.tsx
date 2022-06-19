@@ -1,7 +1,7 @@
 import { useRef, useEffect } from "react";
 
 import Mouse from "./Mouse";
-import floodFill from "utils/floodFill";
+import floodFill, { cssTo32BitColor } from "utils/floodFill";
 
 const LINE_SIZE = 10;
 
@@ -78,7 +78,7 @@ const Canvas = ({ canvasRef, activeTool, activeColor }: CanvasProps) => {
                     ctx,
                     parseInt(mouse.x.toString()),
                     parseInt(mouse.y.toString()),
-                    HEXToVBColor(_activeColor.slice(1))
+                    cssTo32BitColor(activeColor)
                 );
             } else {
                 prevMouseX = null;
