@@ -9,7 +9,6 @@ const Explore: NextPage = ({user}:any) => {
     const [drawings, setDrawings] = useState<any[]>([]);
 
     useEffect(() => {
-
         getDocs(collection(db, "drawings")).then(docs => {
             let array:any[] = []
             docs.forEach(doc => {

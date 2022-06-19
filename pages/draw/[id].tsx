@@ -1,10 +1,9 @@
 import type { NextPage, NextPageContext } from "next";
 import { FaFill, FaEraser, FaPencilAlt } from "react-icons/fa";
 import { useEffect, useState } from "react";
-
+import { db } from "firebase/client";
 import { CenterDiv } from "components/utils";
 import { Button } from "components/atoms";
-
 import Canvas from "components/draw/Canvas";
 import {
     CanvasToolWrapper,
@@ -12,8 +11,8 @@ import {
     CanvasColor,
     CanvasColorPicker,
 } from "components/draw/CanvasTools";
-
 import useRandomColors from "hooks/useRandomColors";
+import { addDoc , collection, doc } from "firebase/firestore";
 
 interface DrawProps {
     id?: string;
@@ -29,6 +28,10 @@ const Draw: NextPage = ({ id }: DrawProps) => {
     const { colors, lastColor, setLastColor } = useRandomColors(10);
     const [activeTool, setActiveTool] = useState("pencil");
     const [activeColor, setActiveColor] = useState("#9e0142");
+
+    function PublishImage(){
+        
+    }
 
     return (
         <CenterDiv>
@@ -82,7 +85,7 @@ const Draw: NextPage = ({ id }: DrawProps) => {
                             />
                         </div>
 
-                        <Button className="w-full mt-4">Publish</Button>
+                        <Button className="w-full mt-4" onClick={PublishImage}>Publish</Button>
                     </div>
 
                     <Canvas activeTool={activeTool} activeColor={activeColor} />
