@@ -10,7 +10,6 @@ export default function App({ Component, pageProps }: AppProps){
     const [user, loading, error] = useAuthState(auth);
 
     useEffect(() => {
-        console.log(user, loading , error)
         if(user === null && !loading && !error){
             Router.push("/login")
         }
@@ -22,7 +21,7 @@ export default function App({ Component, pageProps }: AppProps){
     return (
     <>
         {user!==null&&<Navbar user={user}/>}
-        <Component {...pageProps} />
+        <Component {...pageProps} user={user} />
     </>
     )
 }

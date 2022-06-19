@@ -7,9 +7,10 @@ interface PaintingCardProps {
     upVotes: number
     userIcon: string
     collaborators: any[]
+    heading: string
 }
 
-export default function PaintingCard({painting, onClick, upVotes, userIcon,collaborators}:PaintingCardProps) {
+export default function PaintingCard({heading,painting, onClick, upVotes, userIcon,collaborators}:PaintingCardProps) {
     
     function handleUpvote(){
 
@@ -17,16 +18,16 @@ export default function PaintingCard({painting, onClick, upVotes, userIcon,colla
 
     return ( 
         <div className="inline-flex items-center justify-center flex-col m-8">
+            <h1 className="font-semibold">{heading}</h1>
             <div className="h-52 w-52 rounded-3xl bg-gray-300 "></div>
             <div className="flex items-center justify-between mt-2 w-48">
                 <div className="flex items-center">
                     <div className="rounded-full h-6 w-6 bg-black z-10"></div>
                     {collaborators.map((collaborator:any)=>{
                         const currentIndex = collaborators.indexOf(collaborator)
-                        console.log(currentIndex)
                         if(currentIndex < 4){
                             return(
-                                <div style={{background: '#'+Math.floor(Math.random()*16777215).toString(16), marginLeft: -0.4+'rem', zIndex:'-'+currentIndex}} className="rounded-full h-6 w-6 bg-red-400 shadow-2xl -z-10"></div>
+                                <div style={{background:'#'+Math.floor(Math.random()*16777215).toString(16), marginLeft: -0.4+'rem', zIndex:'-'+currentIndex}} className="rounded-full h-6 w-6 bg-red-400 shadow-2xl -z-10"></div>
                                 )
                             }
                         }
