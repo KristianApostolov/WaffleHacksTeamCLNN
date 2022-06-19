@@ -1,11 +1,22 @@
 import { useRef, useEffect } from "react";
+
 import Mouse from "./Mouse";
+import floodFill from "utils/floodFill";
 
 const LINE_SIZE = 10;
 
 interface CanvasProps {
     activeTool: string;
     activeColor: string;
+}
+
+function HEXToVBColor(rrggbb: string) {
+    const bbggrr =
+        rrggbb.substring(4, 2) +
+        rrggbb.substring(2, 2) +
+        rrggbb.substring(0, 2);
+
+    return parseInt(bbggrr, 16);
 }
 
 const Canvas = ({ activeTool, activeColor }: CanvasProps) => {
@@ -25,6 +36,7 @@ const Canvas = ({ activeTool, activeColor }: CanvasProps) => {
     useEffect(() => {
         const canvas = canvasRef.current!;
         const ctx = canvas.getContext("2d")!;
+        const [width, height] = [canvas.offsetWidth, canvas.offsetHeight];
 
         // canvas state
         let animationId: number = 0;
@@ -60,6 +72,15 @@ const Canvas = ({ activeTool, activeColor }: CanvasProps) => {
 
                 prevMouseX = mouse.x;
                 prevMouseY = mouse.y;
+            } else if (mouse.down && activeTool === "bucket") {
+                mouse.down = false;
+
+                floodFill(
+                    ctx,
+                    parseInt(mouse.x.toString()),
+                    parseInt(mouse.y.toString()),
+                    HEXToVBColor(_activeColor.slice(1))
+                );
             } else {
                 prevMouseX = null;
                 prevMouseY = null;
@@ -76,7 +97,7 @@ const Canvas = ({ activeTool, activeColor }: CanvasProps) => {
 
     return (
         <canvas
-            className="w-[75vmin] h-[75vmin] rounded-xl border shadow-lg"
+            className="w-[75vmin] h-[75vmin] rounded-xl border border-gray-300 shadow-lg"
             ref={canvasRef}
         ></canvas>
     );
