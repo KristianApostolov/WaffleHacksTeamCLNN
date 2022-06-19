@@ -1,10 +1,10 @@
 import type { NextPage, NextPageContext } from "next";
 import { FaFill, FaEraser, FaPencilAlt } from "react-icons/fa";
 import { useEffect, useRef, useState } from "react";
-
+import { db } from "../../firebase/client";
+import { setDoc } from "firebase/firestore";
 import { CenterDiv } from "components/utils";
 import { Button } from "components/atoms";
-
 import Canvas from "components/draw/Canvas";
 import {
     CanvasToolWrapper,
@@ -12,11 +12,12 @@ import {
     CanvasColor,
     CanvasColorPicker,
 } from "components/draw/CanvasTools";
-
 import useRandomColors from "hooks/useRandomColors";
+import { addDoc , collection, doc, Timestamp } from "firebase/firestore";
 
 interface DrawProps {
     id?: string;
+    user?: any;
 }
 
 const canvasTools = [
@@ -25,19 +26,24 @@ const canvasTools = [
     { name: "pencil", icon: <FaPencilAlt /> },
 ];
 
-const Draw: NextPage = ({ id }: DrawProps) => {
+const Draw: NextPage = ({ id,user }: DrawProps) => {
     const { colors, lastColor, setLastColor } = useRandomColors(10);
     const [activeTool, setActiveTool] = useState("pencil");
     const [activeColor, setActiveColor] = useState("#9e0142");
-
     const [title, setTitle] = useState("Untitled Drawing");
     const canvasRef = useRef<HTMLCanvasElement>(null);
 
-    const exportCanvas = () => canvasRef.current!.toDataURL("image/png");
-
-    // exportCanvas returns canvas as a data URL
-    // title is the name of the drawing
-
+    async function PublishImage(){
+        const data = {
+            heading:title,
+            content: canvasRef.current!.toDataURL("image/png"),
+            created: Timestamp.now(),
+            creator: [user.uid, user.displayName, user.photoURL],
+            collaborators: [],
+            upvotes:0,
+        }
+        await addDoc(collection(db, "drawings"), data).then(() => {}).catch((e) => {console.error(e)});
+    }
     return (
         <CenterDiv>
             <div>
@@ -93,7 +99,7 @@ const Draw: NextPage = ({ id }: DrawProps) => {
                             />
                         </div>
 
-                        <Button className="w-full mt-4">Publish</Button>
+                        <Button className="w-full mt-4" onClick={async()=> await PublishImage()}>Publish</Button>
                     </div>
 
                     <Canvas
