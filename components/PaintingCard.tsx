@@ -1,3 +1,4 @@
+import { doc, setDoc } from "firebase/firestore";
 import Link from "next/link";
 import { FaArrowUp } from "react-icons/fa";
 import { db } from "../firebase/client";
@@ -21,7 +22,9 @@ export default function PaintingCard({
     collaborators,
     id,
 }: PaintingCardProps) {
-    function handleUpvote() {}
+    function handleUpvote() {
+        
+    }
 
     return (
         <div className="inline-flex items-center justify-center flex-col m-8">
@@ -63,7 +66,7 @@ export default function PaintingCard({
                     )}
                 </div>
                 <div className="flex items-center">
-                    <FaArrowUp className="mr-1 cursor-pointer h-5 w-5" />
+                    <FaArrowUp className="mr-1 cursor-pointer h-5 w-5" onClick={()=>handleUpvote()}/>
                     <div className="font-semibold">
                         {upVotes === undefined ? 0 : upVotes}
                     </div>

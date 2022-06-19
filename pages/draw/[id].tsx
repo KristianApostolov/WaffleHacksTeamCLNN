@@ -48,7 +48,7 @@ const Draw: NextPage = ({ id, user, image }: DrawProps) => {
             created: Timestamp.now(),
             creator: [user.uid, user.displayName, user.photoURL],
             collaborators: [],
-            upvotes: 0,
+            upvotedBy: [],
         };
 
         await addDoc(collection(db, "drawings"), data)
