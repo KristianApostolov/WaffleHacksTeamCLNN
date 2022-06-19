@@ -51,11 +51,13 @@ export const CanvasColor = ({ color, active, onClick }: CanvasColorProps) => {
 interface CanvasColorPickerProps {
     defaultColor: string;
     onChange: ChangeEventHandler<HTMLInputElement>;
+    onClick: MouseEventHandler<HTMLDivElement>;
 }
 
 export const CanvasColorPicker = ({
     defaultColor,
     onChange,
+    onClick,
 }: CanvasColorPickerProps) => {
     return (
         <div
@@ -67,6 +69,7 @@ export const CanvasColorPicker = ({
                 type="color"
                 value={defaultColor}
                 onChange={onChange}
+                onClick={onClick}
             />
         </div>
     );

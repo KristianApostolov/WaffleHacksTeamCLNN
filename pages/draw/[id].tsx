@@ -20,7 +20,7 @@ interface DrawProps {
 }
 
 const canvasTools = [
-    { name: "fill", icon: <FaFill /> },
+    { name: "bucket", icon: <FaFill /> },
     { name: "eraser", icon: <FaEraser /> },
     { name: "pencil", icon: <FaPencilAlt /> },
 ];
@@ -28,11 +28,7 @@ const canvasTools = [
 const Draw: NextPage = ({ id }: DrawProps) => {
     const { colors, lastColor, setLastColor } = useRandomColors(10);
     const [activeTool, setActiveTool] = useState("pencil");
-    const [activeColor, setActiveColor] = useState();
-
-    useEffect(() => {
-        setActiveColor(colors[0]);
-    }, []);
+    const [activeColor, setActiveColor] = useState("#9e0142");
 
     return (
         <CenterDiv>
@@ -64,6 +60,10 @@ const Draw: NextPage = ({ id }: DrawProps) => {
                                         key={i}
                                         onClick={() => {
                                             setActiveColor(color);
+
+                                            if (activeTool === "eraser") {
+                                                setActiveTool("pencil");
+                                            }
                                         }}
                                     />
                                 ))}
@@ -75,11 +75,16 @@ const Draw: NextPage = ({ id }: DrawProps) => {
                                     setLastColor(e.target.value);
                                     setActiveColor(e.target.value);
                                 }}
+                                onClick={(e) => {
+                                    // yeah ok ts stop messing with me
+                                    setActiveColor((e as any).target.value);
+                                }}
                             />
                         </div>
 
                         <Button className="w-full mt-4">Publish</Button>
                     </div>
+
                     <Canvas activeTool={activeTool} activeColor={activeColor} />
                 </div>
             </div>
